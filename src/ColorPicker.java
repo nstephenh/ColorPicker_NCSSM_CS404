@@ -19,6 +19,7 @@ public class ColorPicker extends Application{
 
     private Canvas canvas;
 
+    //These three strings store our colors.
     String colorBlue = "00";
     String colorRed = "00";
     String colorGreen = "00";
@@ -99,7 +100,7 @@ public class ColorPicker extends Application{
         blueSlider.setValue(Integer.parseInt(colorBlue, 16));
         greenSlider.setValue(Integer.parseInt(colorGreen, 16));
         //Update Textbox
-        String paintmethis = "0x" + colorRed + colorGreen + colorBlue;
+        String paintmethis = "0x" + colorRed.toUpperCase() + colorGreen.toUpperCase() + colorBlue.toUpperCase();
         hexValueBox.setText(paintmethis);
 
         //Update canvas
