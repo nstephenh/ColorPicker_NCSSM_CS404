@@ -23,6 +23,8 @@ public class ColorPicker extends Application{
     String colorRed = "00";
     String colorGreen = "00";
 
+    HexColorBox hexValueBox = new HexColorBox();
+
     public void init(){
         canvas = new Canvas(500, 500);
 
@@ -43,24 +45,24 @@ public class ColorPicker extends Application{
         maingrid.add(new Label("Blue"), 3, 1);
 
         ColorSlider redSlider = new ColorSlider();
-        redSlider.setOnDragDetected(event ->{
+        redSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorRed = Integer.toHexString((int) redSlider.getValue());
             repaint();
         });
         ColorSlider greenSlider = new ColorSlider();
-        greenSlider.setOnDragDetected(event ->{
+        greenSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorGreen = Integer.toHexString((int) greenSlider.getValue());
             repaint();
         });
         ColorSlider blueSlider = new ColorSlider();
-        blueSlider.setOnDragDetected(event ->{
+        blueSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorBlue = Integer.toHexString((int) blueSlider.getValue());
             repaint();
         });
         maingrid.add(redSlider, 1, 2);
         maingrid.add(greenSlider, 2, 2);
         maingrid.add(blueSlider, 3, 2);
-        maingrid.add(new HexColorBox(), 4, 2);
+        maingrid.add(hexValueBox, 4, 2);
 
 
 
@@ -76,7 +78,9 @@ public class ColorPicker extends Application{
 
     }
     public void repaint(){
+
         String paintmethis = "0x" + colorRed + colorGreen + colorBlue;
+        hexValueBox.setText(paintmethis);
         System.out.println(paintmethis);
         GraphicsContext frenchgirl = canvas.getGraphicsContext2D();
         frenchgirl.setFill(Color.web(paintmethis));
