@@ -24,6 +24,12 @@ public class ColorPicker extends Application{
     String colorGreen = "00";
 
     HexColorBox hexValueBox = new HexColorBox();
+    ColorSlider redSlider = new ColorSlider();
+    ColorSlider greenSlider = new ColorSlider();
+    ColorSlider blueSlider = new ColorSlider();
+
+
+
 
     public void init(){
         canvas = new Canvas(500, 500);
@@ -44,17 +50,16 @@ public class ColorPicker extends Application{
         maingrid.add(new Label("Green"), 2, 1);
         maingrid.add(new Label("Blue"), 3, 1);
 
-        ColorSlider redSlider = new ColorSlider();
         redSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorRed = Integer.toHexString((int) redSlider.getValue());
             repaint();
         });
-        ColorSlider greenSlider = new ColorSlider();
+
         greenSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorGreen = Integer.toHexString((int) greenSlider.getValue());
             repaint();
         });
-        ColorSlider blueSlider = new ColorSlider();
+
         blueSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorBlue = Integer.toHexString((int) blueSlider.getValue());
             repaint();
@@ -78,9 +83,26 @@ public class ColorPicker extends Application{
 
     }
     public void repaint(){
+        //Make sure we've got the right number of digits
+        if (colorBlue.length() < 2){
+            colorBlue = "0" + colorBlue;
+        }
+        if (colorRed.length() < 2){
+            colorRed = "0" + colorRed;
+        }
+        if (colorGreen.length() < 2){
+            colorGreen = "0" + colorGreen;
+        }
 
+        //Update Sliders
+        redSlider.setValue(Integer.parseInt(colorRed, 16));
+        blueSlider.setValue(Integer.parseInt(colorBlue, 16));
+        greenSlider.setValue(Integer.parseInt(colorGreen, 16));
+        //Update Textbox
         String paintmethis = "0x" + colorRed + colorGreen + colorBlue;
         hexValueBox.setText(paintmethis);
+
+        //Update canvas
         System.out.println(paintmethis);
         GraphicsContext frenchgirl = canvas.getGraphicsContext2D();
         frenchgirl.setFill(Color.web(paintmethis));
