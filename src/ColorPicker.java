@@ -1,5 +1,6 @@
 import com.sun.xml.internal.ws.api.model.ExceptionType;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -33,7 +35,7 @@ public class ColorPicker extends Application{
 
 
     public void init(){
-        canvas = new Canvas(500, 500);
+        canvas = new Canvas(800, 800);
 
     }
 
@@ -47,9 +49,11 @@ public class ColorPicker extends Application{
 
         GridPane maingrid = new GridPane();
 
-        maingrid.add(new Label("Red"), 1, 1);
-        maingrid.add(new Label("Green"), 2, 1);
-        maingrid.add(new Label("Blue"), 3, 1);
+        maingrid.add(new NiceLabel("Red","0xFF0000"), 1, 1);
+        maingrid.add(new NiceLabel("Green","0x00FF00"), 2, 1);
+        maingrid.add(new NiceLabel("Blue","0x0000FF"), 3, 1);
+        maingrid.add(new NiceLabel("Hex Code","0x000000"), 4, 1);
+
 
         redSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
             colorRed = Integer.toHexString((int) redSlider.getValue());
@@ -69,6 +73,9 @@ public class ColorPicker extends Application{
         maingrid.add(greenSlider, 2, 2);
         maingrid.add(blueSlider, 3, 2);
         maingrid.add(hexValueBox, 4, 2);
+        maingrid.setAlignment(Pos.CENTER);
+        maingrid.setHgap(10);
+
 
 
 
@@ -76,6 +83,7 @@ public class ColorPicker extends Application{
         BorderPane mainvert = new BorderPane();
         mainvert.setTop(maingrid);
         mainvert.setCenter(canvas);
+
 
         Scene s = new Scene(mainvert, javafx.scene.paint.Color.WHITE);
         primary.setScene(s);
@@ -108,7 +116,9 @@ public class ColorPicker extends Application{
         System.out.println(paintmethis);
         GraphicsContext frenchgirl = canvas.getGraphicsContext2D();
         frenchgirl.setFill(Color.web(paintmethis));
+
         frenchgirl.fillRect(0,0,canvas.getHeight(), canvas.getWidth());
+
 
 
     }
@@ -122,6 +132,15 @@ public class ColorPicker extends Application{
         }
     }
 
+    class NiceLabel extends Label{
+        public NiceLabel(String Text, String hexColor){
+            setTextAlignment(TextAlignment.CENTER);
+            setTextFill(Color.web(hexColor));
+            setText(Text);
+            setAlignment(Pos.CENTER);
+        }
+
+    }
     class HexColorBox extends TextField {
         public HexColorBox(){
             setText("0x000000");
