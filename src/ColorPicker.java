@@ -1,5 +1,6 @@
 import com.sun.xml.internal.ws.api.model.ExceptionType;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -48,11 +49,22 @@ public class ColorPicker extends Application{
         primary.setTitle("Color Picker");
 
         GridPane maingrid = new GridPane();
+        NiceLabel redLabel = new NiceLabel("Red","0xFF0000");
 
-        maingrid.add(new NiceLabel("Red","0xFF0000"), 1, 1);
-        maingrid.add(new NiceLabel("Green","0x00FF00"), 2, 1);
-        maingrid.add(new NiceLabel("Blue","0x0000FF"), 3, 1);
-        maingrid.add(new NiceLabel("Hex Code","0x000000"), 4, 1);
+        maingrid.setHalignment(redLabel, HPos.CENTER);
+        maingrid.add(redLabel, 1, 1);
+
+        NiceLabel greenLabel = new NiceLabel("Green","0x00FF00");
+        maingrid.setHalignment(redLabel, HPos.CENTER);
+        maingrid.add(greenLabel, 2, 1);
+
+        NiceLabel blueLabel = new NiceLabel("Blue","0x0000FF");
+        maingrid.setHalignment(blueLabel, HPos.CENTER);
+        maingrid.add(blueLabel, 3, 1);
+
+        NiceLabel hexLabel = new NiceLabel("Hex Code","0x000000");
+        maingrid.setHalignment(hexLabel, HPos.CENTER);
+        maingrid.add(hexLabel, 4, 1);
 
 
         redSlider.valueProperty().addListener( (ov, old_val, new_val) ->{
@@ -75,6 +87,7 @@ public class ColorPicker extends Application{
         maingrid.add(hexValueBox, 4, 2);
         maingrid.setAlignment(Pos.CENTER);
         maingrid.setHgap(10);
+
 
 
 
@@ -128,6 +141,7 @@ public class ColorPicker extends Application{
             setMax(255);
             setShowTickMarks(true);
             setShowTickLabels(true);
+            setMajorTickUnit(64);
 
         }
     }
