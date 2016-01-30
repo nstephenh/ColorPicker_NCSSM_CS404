@@ -129,8 +129,7 @@ public class ColorPicker extends Application{
         System.out.println(paintmethis);
         GraphicsContext frenchgirl = canvas.getGraphicsContext2D();
         frenchgirl.setFill(Color.web(paintmethis));
-
-        frenchgirl.fillRect(0,0,canvas.getHeight(), canvas.getWidth());
+        frenchgirl.fillRect(0,0,4096, 4096);
 
 
 
