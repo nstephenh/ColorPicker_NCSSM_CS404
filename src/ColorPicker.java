@@ -72,6 +72,7 @@ public class ColorPicker extends Application{
 
 
 
+
         BorderPane mainvert = new BorderPane();
         mainvert.setTop(maingrid);
         mainvert.setCenter(canvas);
